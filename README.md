@@ -4,6 +4,11 @@
 [![Documentation Status](https://readthedocs.org/projects/None/badge/)](https://None.readthedocs.io/)
 
 
+### NOTES
+
+
+JUST A SIMPLE POINTER ARITHMETIC LIBRARY, WRITTEN FOR exploring deducing this.
+
 # Prerequisites
 
 Building cpp_pointer requires the following software installed:
