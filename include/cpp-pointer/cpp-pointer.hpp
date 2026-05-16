@@ -42,11 +42,16 @@ public: // for now.
     return self.byte_sub(x);
   }
 
-  [[nodiscard]] constexpr auto read_unaligned(this auto const self) -> T {
+  [[nodiscard]] constexpr auto read_unaligned(this auto const self) noexcept -> T {
     T value{};
     std::memcpy(&value, self.get(), sizeof(T));
     return value;
   }
+
+   [[nodiscard]] constexpr auto read(this auto const self ) noexcept ->T{
+
+    return self.get();
+   }
 
   [[nodiscard]] constexpr auto is_not_null(this auto const self) noexcept
       -> bool {
