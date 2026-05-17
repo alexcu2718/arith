@@ -9,6 +9,8 @@
 
 JUST A SIMPLE POINTER ARITHMETIC LIBRARY, WRITTEN FOR exploring deducing this.
 
+As well as other nicer modern features
+
 # Prerequisites
 
 Building cpp_pointer requires the following software installed:

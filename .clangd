@@ -1,0 +1,12 @@
+CompileFlags:
+  CompilationDatabase: build
+Diagnostics:
+  ClangTidy:
+    Add:
+      [
+        "clang-analyzer-*",
+        "performance-*",
+        "bugprone-*",
+        "readability-*",
+        "modernize-*",
+      ]
