@@ -12,7 +12,9 @@
 // TODO investigate smarter pointer funcionality, operator overloading, add
 // asserts in.
 
-#define IS_POWER_OF_TWO(x) (((x) & ((x) - 1)) == 0)
+constexpr auto is_power_of_two(auto num) -> bool {
+  return (num & (num - 1)) == 0;
+}
 
 namespace cpppointer { // terrible name
 
@@ -38,7 +40,7 @@ public: // for now.
   /// the second pointer starts on an aligned address.
   template <typename H>
     requires(std::is_integral_v<H> && alignof(H) > 0 &&
-             IS_POWER_OF_TWO(alignof(H)))
+             is_power_of_two(alignof(H)))
   [[nodiscard]] constexpr auto align_head_body(this auto const self) noexcept
       -> std::pair<Pointer<H>, Pointer<H>> {
     const auto offset = self.template align_to<H>();
@@ -104,7 +106,7 @@ public: // for now.
   }
   /// Check if pointer is aligned to arbitrary POD `M`
   template <typename M>
-    requires(sizeof(M) != 0 && alignof(M) != 0 && IS_POWER_OF_TWO(alignof(M)))
+    requires(sizeof(M) != 0 && alignof(M) != 0 && is_power_of_two(alignof(M)))
   [[nodiscard]] constexpr auto is_aligned_to(this auto const self) noexcept
       -> bool {
 
@@ -129,7 +131,7 @@ public: // for now.
 
   /// Returns the offset required to meet the alignment of `M`
   template <typename M>
-    requires(sizeof(M) != 0 && alignof(M) != 0 && IS_POWER_OF_TWO(alignof(M)))
+    requires(sizeof(M) != 0 && alignof(M) != 0 && is_power_of_two(alignof(M)))
   [[nodiscard]] constexpr auto align_to(this auto const self) noexcept
       -> size_t {
     constexpr size_t ALIGNMENT = alignof(M);
