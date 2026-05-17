@@ -1,8 +1,7 @@
 #include "cpp-pointer/cpp-pointer.hpp"
-#include <cstring>
+#include <cstdint>
 #include <format>
 #include <iostream>
-
 // just an example of deducing this, pretty cool, never used it before.
 class Base { // NOLINT
 public:
@@ -23,7 +22,9 @@ public:
 };
 
 using namespace cpppointer;
+// NOLINTBEGIN
 
+// this is just testing code for really duick things
 auto main() -> int {
   alignas(uint64_t) const auto *hii = "yes";
 
@@ -38,21 +39,8 @@ auto main() -> int {
 
   auto h2t = cpppointer::Pointer{hekeki};
 
-  auto test_operator = !h2t;
-  std::cout << std::format("the result is the ! operator is {} \n",
-                           test_operator);
-
   auto is_aligned = h2t.is_aligned();
-
-  auto lentest = h2t.strlength();
-  auto reallen = std::strlen(hekeki);
-  std::cout << std::format(" std strlen test is {} and real strleb is {}",
-                           lentest, reallen);
-
-  auto val = h2t.cast<uint64_t>();
-
-  std::cout << std::format("test is {}  meanwhile add 3 is {}\n\n", test.get(),
-                           lol);
+  std::cout << std::format(" h2t is aligned '{}'\n", is_aligned);
 
   Base base{};
   base.show();
@@ -61,3 +49,4 @@ auto main() -> int {
   Another another;
   another.show();
 }
+// NOLINTEND

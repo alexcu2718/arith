@@ -45,7 +45,6 @@ if(PROJECT_IS_TOP_LEVEL)
   # Compile the tests
   include(CTest)
   if(cpp-pointer_BUILD_TESTING)
-    add_subdirectory(ext/Catch2)
     add_subdirectory(tests)
   endif()
 endif()

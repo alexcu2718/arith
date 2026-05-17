@@ -10,3 +10,5 @@ Diagnostics:
         "readability-*",
         "modernize-*",
       ]
+    Remove:
+      ["readability-magic-numbers", "cppcoreguidelines-avoid-magic-numbers"]
