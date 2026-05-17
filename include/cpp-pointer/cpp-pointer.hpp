@@ -12,7 +12,7 @@
 // TODO investigate smarter pointer funcionality, operator overloading, add
 // asserts in.
 
-#define IS_POWER_OF_TWO(x) ((x & (x - 1)) == 0)
+#define IS_POWER_OF_TWO(x) (((x) & ((x) - 1)) == 0)
 
 namespace cpppointer { // terrible name
 
@@ -50,13 +50,13 @@ public: // for now.
   }
 
   [[nodiscard]] constexpr auto byte_add(this auto const self,
-                                        size_t amt) noexcept -> T * {
-    return bit_cast<T *>(self.address() + amt);
+                                        size_t amt) noexcept -> Pointer<T> {
+    return {bit_cast<T *>(self.address() + amt)};
   }
 
   [[nodiscard]] constexpr auto byte_sub(this auto const self,
-                                        size_t amt) noexcept -> T * {
-    return bit_cast<T *>(self.address() - amt);
+                                        size_t amt) noexcept -> Pointer<T> {
+    return {bit_cast<T *>(self.address() - amt)};
   }
 
   [[nodiscard]] constexpr auto operator*(this auto const self) noexcept -> T {
@@ -64,8 +64,8 @@ public: // for now.
   }
 
   [[nodiscard]] constexpr auto operator+(this auto const self,
-                                         size_t amt) noexcept -> T * {
-    return self.byte_add(amt);
+                                         size_t amt) noexcept -> Pointer<T> {
+    return {self.byte_add(amt)};
   }
 
   [[nodiscard]] constexpr auto operator!(this auto const self) noexcept
@@ -95,7 +95,7 @@ public: // for now.
   [[nodiscard]] constexpr auto read_aligned(this auto const self) noexcept
       -> T {
 
-    return *self;
+    return *self._ptr;
   }
 
   [[nodiscard]] constexpr auto is_not_null(this auto const self) noexcept
@@ -129,7 +129,7 @@ public: // for now.
 
   /// Returns the offset required to meet the alignment of `M`
   template <typename M>
-    requires(sizeof(M) != 0 && alignof(M) != 0 && IS_POWER_OF_TWO(alignof(M )))
+    requires(sizeof(M) != 0 && alignof(M) != 0 && IS_POWER_OF_TWO(alignof(M)))
   [[nodiscard]] constexpr auto align_to(this auto const self) noexcept
       -> size_t {
     constexpr size_t ALIGNMENT = alignof(M);

@@ -36,26 +36,26 @@ auto main() -> int {
   EXPECT(null_pointer.operator!());
   EXPECT(Pointer<uint32_t>::null_ptr().is_null());
 
-  std::array<unsigned char, 8> bytes{1, 2, 3, 4, 5, 6, 7, 8};
-  Pointer<unsigned char> byte_pointer{bytes.data()};
+  std::array<char, 8> bytes{1, 2, 3, 4, 5, 6, 7, 8};
+  Pointer<char> byte_pointer{bytes.data()};
 
-  EXPECT(byte_pointer.byte_add(3) == bytes.data() + 3);
-  EXPECT(byte_pointer.byte_sub(0) == bytes.data());
-  EXPECT((byte_pointer + 5) == bytes.data() + 5);
-  EXPECT((byte_pointer - 2) == bytes.data() - 2);
+  EXPECT(byte_pointer.byte_add(3).byte_ptr() == bytes.data() + 3);
+  EXPECT(byte_pointer.byte_sub(0).byte_ptr() == bytes.data());
+  EXPECT((byte_pointer + 5).byte_ptr() == bytes.data() + 5);
+  EXPECT((byte_pointer - 2).byte_ptr() == bytes.data() - 2);
 
   std::array<unsigned char, 16> alignment_bytes{};
   auto *misaligned = alignment_bytes.data() + 1;
   Pointer<uint32_t> alignment_pointer{bit_cast<uint32_t *>(misaligned)};
 
   EXPECT(!alignment_pointer.is_aligned());
-  EXPECT(alignment_pointer.align_to<std::uint16_t>() == 1);
+  EXPECT(alignment_pointer.align_to<uint16_t>() == 1);
   EXPECT(alignment_pointer.align_to<uint32_t>() == 3);
 
   const auto [head, body] = alignment_pointer.align_head_body<uint16_t>();
   EXPECT(head.address() == alignment_pointer.address());
   EXPECT(body.address() == alignment_pointer.address() +
-                               alignment_pointer.align_to<std::uint16_t>());
+                               alignment_pointer.align_to<uint16_t>());
 
   uint32_t aligned_value = 0x12345678;
   Pointer<uint32_t> aligned_pointer{&aligned_value};
@@ -63,7 +63,7 @@ auto main() -> int {
   std::array<unsigned char, 8> unaligned_bytes{0x78, 0x56, 0x34, 0x12,
                                                0,    0,    0,    0};
   auto *raw = unaligned_bytes.data() + 1;
-  Pointer<uint32_t> unaligned_pointer{bit_cast<std::uint32_t *>(raw)};
+  Pointer<uint32_t> unaligned_pointer{bit_cast<uint32_t *>(raw)};
 
   EXPECT(aligned_pointer.read_aligned() == aligned_value);
   EXPECT(unaligned_pointer.read_unaligned() == 0x00123456);

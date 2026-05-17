@@ -11,6 +11,46 @@ JUST A SIMPLE POINTER ARITHMETIC LIBRARY, WRITTEN FOR exploring deducing this.
 
 As well as other nicer modern features
 
+
+## Example
+
+```cpp
+
+
+void example_usage() {
+
+  Pointer use_this{"hellloooooooo"};
+  const bool is_aligned = use_this.is_aligned_to<uint32_t>();
+  const size_t offset_to = use_this.align_to<uint32_t>();
+
+  const bool is_aligned_after_offset =
+      use_this.byte_add(offset_to).cast<uint32_t>().is_aligned();
+
+  const uint32_t read_u32_from_start_of_aligned_memory =
+      use_this.byte_add(offset_to).cast<uint32_t>().read_aligned();
+
+  std::cout << std::format("\n\n\nAlignment offset: {}\n"
+                           "Aligned before offset: {}\n"
+                           "Pointer address: {}\n"
+                           "Aligned after offset: {}\n",
+                           offset_to, is_aligned, use_this.address(),
+                           is_aligned_after_offset);
+}
+
+/*
+Example output
+
+
+Alignment offset: 3
+Aligned before offset: false
+Pointer address: 94124911207161
+Aligned after offset: true
+
+
+*/
+
+```
+
 # Prerequisites
 
 Building cpp_pointer requires the following software installed:
