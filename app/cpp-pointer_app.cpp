@@ -6,10 +6,7 @@
 // just an example of deducing this, pretty cool, never used it before.
 class Base { // NOLINT
 public:
-  void show(this auto _self) {
-    (void)_self;
-    std::cout << "This is base class.\n";
-  }
+  void show(this auto) { std::cout << "This is base class.\n"; } // NOLINT
 };
 
 class Derived : public Base { // NOLINT
