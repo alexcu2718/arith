@@ -33,7 +33,7 @@ target_sources(cpp-pointer
 # Request a minimum C++ standard for this target
 target_compile_features(cpp-pointer
   INTERFACE
-    cxx_std_23
+    cxx_std_26
 )
 
 if(PROJECT_IS_TOP_LEVEL)
@@ -102,6 +102,5 @@ install(
   DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/cpp-pointer
 )
 
-# This prints a summary of found dependencies
 include(FeatureSummary)
 feature_summary(WHAT ALL)

@@ -53,9 +53,10 @@ auto main() -> int {
   EXPECT(alignment_pointer.align_to<uint32_t>() == 3);
 
   const auto [head, body] = alignment_pointer.align_head_body<uint16_t>();
-  EXPECT(head.address() == alignment_pointer.address());
-  EXPECT(body.address() ==
-         alignment_pointer.address() + alignment_pointer.align_to<uint16_t>());
+  EXPECT(head.has_value() && head->address() == alignment_pointer.address());
+  EXPECT(body.has_value() &&
+         body->address() == alignment_pointer.address() +
+                                alignment_pointer.align_to<uint16_t>());
 
   uint32_t aligned_value = 0x12345678;
   Pointer<uint32_t> aligned_pointer{&aligned_value};
